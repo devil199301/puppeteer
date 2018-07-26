@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "puppeteer": "^1.6.0"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.2"
   }
 }

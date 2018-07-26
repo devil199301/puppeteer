@@ -7,7 +7,7 @@ const puppeteer = require('puppeteer');
     });
     const page = await browser.newPage();
 
-    page.on('console', msg => console.log(`${msg._text}`));
+    page.on('console', msg => console.log(`console :: ${msg._text}`));
 
     // page.on('pageerror', error => {
     //   console.log(error);
@@ -45,9 +45,9 @@ const puppeteer = require('puppeteer');
      * 設定網址
      */
     const web = [{
-        "Id": "365",
+        "Id": "",
         "Name": "",
-        "PortalUrl2": "http://www.00220040.com/",
+        "PortalUrl2": "", 
         "SiteExist": ""
     }];
 
@@ -57,12 +57,11 @@ const puppeteer = require('puppeteer');
             console.log(`${web[i]['Id']} : 開始`);
             await page.setViewport(viewport);
 
-            關閉iframe
+            //關閉iframe
             try {
                 await page.click('.site-announcement span.closed');
                 console.log(`關閉iframe`);
             } catch (err) {
-                console.log(`沒有iframe`)
             };
 
             // 關閉popup-news
@@ -70,7 +69,6 @@ const puppeteer = require('puppeteer');
                 await page.click('span[ng-click="closeMarquee()"]');
                 console.log(`關閉popup-news`);
             } catch (err) {
-                console.log(`沒有popup-news`)
             };
 
             // 關閉popup-dialog
@@ -78,7 +76,6 @@ const puppeteer = require('puppeteer');
                 await page.click('button.ui-dialog-titlebar-close');
                 console.log(`關閉popup-dialog`);
             } catch (err) {
-                onsole.log(`沒有popup-dialog`);
             };
 
             console.log(`5秒檢查`);
@@ -99,5 +96,5 @@ const puppeteer = require('puppeteer');
     }
 
     await browser.close();
-    console.log(`---------End---------`);
+    console.log(`---------全部結束---------`);
 })();

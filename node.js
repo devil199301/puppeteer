@@ -6,8 +6,8 @@ const webList = web.webList;
 (async () => {
 
     const browser = await puppeteer.launch({
-        headless: false,
-        devtools: true
+        // headless: false,
+        // devtools: true
     });
 
     const page = await browser.newPage();
@@ -26,6 +26,11 @@ const webList = web.webList;
         if (msg._type === 'error') {
             console.log(`console :: ${msg._text}`)
         }
+    });
+
+    page.on('dialog', async dialog => {
+        console.log(dialog.message());
+        await dialog.dismiss();
     });
 
     // page.on('pageerror', error => {
@@ -58,7 +63,7 @@ const webList = web.webList;
             const head = $('html').attr('ng-app');
             const icon = $('head link[rel="shortcut icon"]').attr('href');;
             const url = await page.evaluate(() => location.href);
-            
+
             // 檢查是不是我們的網站
             if (!head) {
                 console.log(`${webList[i]['Id']} : 不是我們的網站`);
@@ -77,7 +82,7 @@ const webList = web.webList;
             }
 
             await page.setViewport(viewport);
-         
+
             console.log(`${webList[i]['Id']} : 開始`);
 
             //關閉iframe
@@ -105,23 +110,23 @@ const webList = web.webList;
                 fullPage: true // 全畫面截圖
             });
 
-            await page.goto(`${webList[i]['PortalUrl2']}/Lobby/Live`);
-            console.log(`進Live`);
-            //  await page.waitFor(10000);
+            // await page.goto(`${webList[i]['PortalUrl2']}/Lobby/Live`);
+            // console.log(`進Live`);
+            // await page.waitFor(10000);
 
-            await page.screenshot({
-                path: `img/${webList[i]['Id']}-Live.png`,
-                fullPage: true // 全畫面截圖
-            });
+            // await page.screenshot({
+            //     path: `img/${webList[i]['Id']}-Live.png`,
+            //     fullPage: true // 全畫面截圖
+            // });
 
-            await page.goto(`${webList[i]['PortalUrl2']}/Register`);
-            console.log(`進Register`);
-            //  await page.waitFor(10000);
+            // await page.goto(`${webList[i]['PortalUrl2']}/Register`);
+            // console.log(`進Register`);
+            // await page.waitFor(10000);
 
-            await page.screenshot({
-                path: `img/${webList[i]['Id']}-Register.png`,
-                fullPage: true // 全畫面截圖
-            });
+            // await page.screenshot({
+            //     path: `img/${webList[i]['Id']}-Register.png`,
+            //     fullPage: true // 全畫面截圖
+            // });
 
             console.log(`${webList[i]['Id']} : 結束`);
         } catch (err) {
